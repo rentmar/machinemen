@@ -1,0 +1,31 @@
+from operator import le
+import threading
+import time
+
+
+def test1(num):
+    for i in range(num):
+        print("---- test1 %d ----" %i)
+        time.sleep(1)
+
+
+def test2(num):
+    for i in range(num):
+        print("---- test2 %d ----" %i)
+        time.sleep(1)
+
+def main():
+    t1 = threading.Thread(target=test1, args=(5,))
+    t2 = threading.Thread(target=test2, args=(10,))
+
+    t1.start()
+    t2.start()
+
+    while True:
+        print(threading.enumerate())
+        if len(threading.enumerate()) <= 1:
+            break
+        time.sleep(1)
+
+if __name__ == '__main__':
+    main()
